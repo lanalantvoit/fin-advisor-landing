@@ -13,6 +13,7 @@
 - Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
 - `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
 - If the server is already running, do not start a second instance.
+- Ultimately, what’s gonna happen is we’re syncing all the changes to GifHub and GifHub will automatically push them to Vercel and we’ll be good to go, but when I’m making changes with you here we’re always going to test on the local host until I tell you explicitly to push that to GifHub
 
 ## Screenshot Workflow
 - Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
