@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bergmann Financial Advisory — Oslo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:      #1a7a6e;
+      --primary-dark: #145f56;
+      --primary-light:#e8f5f3;
+      --dark:         #1a1a2e;
+      --dark-mid:     #2d2d44;
+      --gray:         #6b7280;
+      --gray-light:   #f4f6f8;
+      --border:       #e2e8f0;
+      --white:        #ffffff;
+      --shadow-sm:    0 1px 3px rgba(26,122,110,.08), 0 1px 2px rgba(26,26,46,.06);
+      --shadow-md:    0 4px 16px rgba(26,122,110,.1),  0 2px 6px rgba(26,26,46,.06);
+      --shadow-lg:    0 12px 40px rgba(26,122,110,.14), 0 4px 12px rgba(26,26,46,.08);
+      --radius-btn:   8px;
+      --radius-card:  12px;
+      --nav-h:        72px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Typography ───────────────────────────────────────── */
+    h1, h2, h3 { line-height: 1.2; letter-spacing: -0.03em; font-weight: 700; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+    h3 { font-size: 1.125rem; font-weight: 600; }
+    p  { line-height: 1.75; color: var(--gray); }
+
+    /* ── Layout helpers ───────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    section { padding: 150px 0; }
+
+    /* ── Buttons ──────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background 0.18s ease, color 0.18s ease,
+                  border-color 0.18s ease, box-shadow 0.18s ease,
+                  transform 0.14s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(26,122,110,.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      box-shadow: 0 4px 16px rgba(26,122,110,.4);
+      transform: translateY(-1px);
+    }
+    .btn-primary:focus-visible {
+      outline: 3px solid rgba(26,122,110,.4);
+      outline-offset: 3px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .btn-ghost:hover {
+      background: var(--primary-light);
+      box-shadow: 0 2px 8px rgba(26,122,110,.15);
+      transform: translateY(-1px);
+    }
+    .btn-ghost:focus-visible {
+      outline: 3px solid rgba(26,122,110,.4);
+      outline-offset: 3px;
+    }
+
+    .btn-ghost-white {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,.5);
+    }
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,.1);
+      border-color: var(--white);
+    }
+
+    .btn-sm { padding: 9px 18px; font-size: 0.875rem; }
+
+    /* ── Section label ────────────────────────────────────── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       1. HEADER
+    ══════════════════════════════════════════════════════ */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      min-height: var(--nav-h);
+      padding: 12px 0;
+    }
+
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+    }
+    .logo__mark {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .logo__mark svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+    .logo__name span { color: var(--primary); }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--gray);
+      transition: color 0.15s ease;
+      position: relative;
+    }
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width 0.2s ease;
+    }
+    .nav__links a:hover { color: var(--primary); }
+    .nav__links a:hover::after { width: 100%; }
+
+    /* Mobile hamburger */
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav__toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       2. HERO
+    ══════════════════════════════════════════════════════ */
+    .hero {
+      padding: 100px 0 150px;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 40%, rgba(26,122,110,.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(26,26,46,.04) 0%, transparent 60%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='0.8' fill='%231a7a6e' opacity='.08'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero__content { position: relative; z-index: 1; }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .hero__badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero__sub {
+      font-size: 1.125rem;
+      color: var(--gray);
+      margin-bottom: 36px;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* Hero visual panel */
+    .hero__visual {
+      position: relative;
+      z-index: 1;
+    }
+    .hero__card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero__card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .hero__card-title { font-size: 0.875rem; font-weight: 600; color: var(--gray); }
+    .hero__card-badge {
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .hero__chart { display: flex; align-items: flex-end; gap: 8px; height: 80px; margin-bottom: 20px; }
+    .hero__bar {
+      flex: 1;
+      background: var(--primary-light);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+      cursor: default;
+    }
+    .hero__bar--active { background: var(--primary); }
+    .hero__chart:hover .hero__bar { opacity: 0.5; }
+    .hero__chart:hover .hero__bar:hover {
+      opacity: 1;
+      background: var(--primary-dark);
+      transform: scaleY(1.08);
+      transform-origin: bottom;
+    }
+    .hero__chart:hover .hero__bar--active { background: var(--primary); }
+    .hero__bar:nth-child(1) { height: 45%; }
+    .hero__bar:nth-child(2) { height: 65%; }
+    .hero__bar:nth-child(3) { height: 50%; }
+    .hero__bar:nth-child(4) { height: 80%; }
+    .hero__bar:nth-child(5) { height: 60%; }
+    .hero__bar:nth-child(6) { height: 90%; }
+    .hero__bar:nth-child(7) { height: 75%; }
+
+    .hero__stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .hero__stat {
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .hero__stat-val { font-size: 1.375rem; font-weight: 700; color: var(--dark); letter-spacing: -0.03em; }
+    .hero__stat-lbl { font-size: 0.75rem; color: var(--gray); margin-top: 2px; }
+
+    .hero__float {
+      position: absolute;
+      bottom: -28px;
+      right: -16px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(26,122,110,.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero__float svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; }
+
+    /* ══════════════════════════════════════════════════════
+       3. SERVICES
+    ══════════════════════════════════════════════════════ */
+    .services { background: var(--gray-light); }
+
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header h2 { color: var(--dark); margin-bottom: 14px; }
+    .section-header p { max-width: 520px; margin: 0 auto; font-size: 1.0625rem; }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .service-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      border-color: rgba(26,122,110,.2);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 24px; height: 24px; fill: none; stroke: var(--primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .service-card h3 { color: var(--dark); margin-bottom: 10px; }
+    .service-card p { font-size: 0.9375rem; margin-bottom: 20px; }
+    .service-card__link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      transition: gap 0.18s ease, opacity 0.18s ease;
+    }
+    .service-card__link:hover { gap: 9px; opacity: 0.8; }
+    .service-card__link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ══════════════════════════════════════════════════════
+       4. ABOUT
+    ══════════════════════════════════════════════════════ */
+    .about__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    /* Photo */
+    .about__photo-wrap {
+      position: relative;
+    }
+    .about__photo {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+    .about__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .about__badge {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .about__badge-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+    }
+    .about__badge-icon svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; }
+    .about__badge-text { font-size: 0.8125rem; }
+    .about__badge-text strong { display: block; font-size: 0.9375rem; color: var(--dark); }
+
+    .about__content { }
+    .about__bio {
+      font-size: 1.0625rem;
+      color: var(--gray);
+      margin-bottom: 36px;
+      line-height: 1.75;
+    }
+
+    .about__trust {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--gray-light);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .trust-item:hover { background: var(--primary-light); border-color: rgba(26,122,110,.25); }
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .trust-icon svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .trust-text strong { font-size: 1rem; font-weight: 700; color: var(--dark); }
+    .trust-text span { display: block; font-size: 0.875rem; color: var(--gray); }
+
+    /* ══════════════════════════════════════════════════════
+       5. TESTIMONIALS
+    ══════════════════════════════════════════════════════ */
+    .testimonials { background: var(--dark); }
+    .testimonials .section-header h2 { color: var(--white); }
+    .testimonials .section-header p { color: rgba(255,255,255,.55); }
+    .testimonials .section-label { color: rgba(255,255,255,.5); }
+
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .quote-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      position: relative;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .quote-card:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(26,122,110,.5);
+      transform: translateY(-3px);
+    }
+    .quote-mark {
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--primary);
+      font-family: Georgia, serif;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .quote-text {
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,.8);
+      margin-bottom: 28px;
+    }
+    .quote-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .quote-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .quote-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .quote-name { font-weight: 600; color: var(--white); font-size: 0.9375rem; }
+    .quote-title-text { font-size: 0.8125rem; color: rgba(255,255,255,.45); margin-top: 1px; }
+
+    .stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+    .star {
+      width: 14px;
+      height: 14px;
+      background: #facc15;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       6. CONTACT
+    ══════════════════════════════════════════════════════ */
+    .contact__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact__info h2 { color: var(--dark); margin-bottom: 14px; }
+    .contact__info > p { font-size: 1.0625rem; margin-bottom: 40px; }
+
+    .contact__details { display: flex; flex-direction: column; gap: 14px; }
+    .contact__link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--gray-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.18s ease;
+    }
+    .contact__link:hover {
+      background: var(--primary-light);
+      border-color: rgba(26,122,110,.25);
+      transform: translateX(4px);
+    }
+    .contact__link-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .contact__link-icon svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .contact__link-text { font-size: 0.875rem; color: var(--gray); }
+    .contact__link-val { font-size: 0.9375rem; font-weight: 600; color: var(--dark); }
+
+    /* Form */
+    .contact__form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-btn);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      outline: none;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color: #b0b8c4; }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26,122,110,.12);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit { padding: 13px 32px; font-size: 1rem; }
+    /* Inline validation */
+    .field-error {
+      display: none;
+      font-size: 0.8125rem;
+      color: #dc2626;
+      margin-top: 5px;
+      align-items: center;
+      gap: 4px;
+    }
+    .field-error.visible { display: flex; }
+    .form-input.invalid,
+    .form-textarea.invalid { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
+    .form-input.valid,
+    .form-textarea.valid { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.08); }
+
+    /* ══════════════════════════════════════════════════════
+       7. FOOTER
+    ══════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 56px 0;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer .logo { color: var(--white); }
+    .footer__nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer__nav a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,.45);
+      transition: color 0.15s ease;
+    }
+    .footer__nav a:hover { color: var(--white); }
+    .footer__copy { font-size: 0.8125rem; color: rgba(255,255,255,.3); }
+
+    /* ══════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════ */
+    @media (max-width: 960px) {
+      .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .hero__inner,
+      .about__inner,
+      .contact__inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero__visual { order: 1; }
+      .services__grid { grid-template-columns: 1fr; }
+      .about__badge { bottom: 12px; right: 12px; }
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 64px 0; }
+      .hero { padding: 48px 0 56px; }
+      .testimonials__grid { grid-template-columns: 1fr; }
+      .nav__links,
+      .nav__cta { display: none; }
+      .nav__toggle { display: flex; }
+      .nav--open .nav__links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+        gap: 20px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.08);
+        z-index: 99;
+      }
+      .nav--open .nav__cta { display: flex; margin: 0 24px 16px; }
+      .footer__inner { flex-direction: column; text-align: center; }
+      .footer__nav { flex-wrap: wrap; justify-content: center; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       MOTION & SCROLL ANIMATIONS
+    ══════════════════════════════════════════════════════ */
+
+    /* Hero load entrance */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero__content {
+      animation: heroFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+    }
+    .hero__visual {
+      animation: heroFadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+    }
+
+    /* Floating badge */
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-7px); }
+    }
+    .hero__float {
+      animation: floatBadge 3.8s ease-in-out infinite;
+    }
+
+    /* Badge dot pulse */
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.45; transform: scale(0.75); }
+    }
+    .hero__badge-dot {
+      animation: dotPulse 2.2s ease-in-out infinite;
+    }
+
+    /* Scroll reveal base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none !important;
+    }
+    .reveal--left  { transform: translateX(-34px); }
+    .reveal--right { transform: translateX(34px); }
+    .reveal--scale { transform: translateY(20px) scale(0.97); }
+
+    /* Stagger delays */
+    .reveal--d1 { transition-delay: 0.07s; }
+    .reveal--d2 { transition-delay: 0.15s; }
+    .reveal--d3 { transition-delay: 0.23s; }
+    .reveal--d4 { transition-delay: 0.31s; }
+
+    /* Header scroll state */
+    .header--scrolled {
+      box-shadow: 0 4px 28px rgba(26, 26, 46, 0.09);
+    }
+
+    /* Reduced motion: disable animations */
+    @media (prefers-reduced-motion: reduce) {
+      .hero__content, .hero__visual { animation: none; opacity: 1; transform: none; }
+      .hero__float, .hero__badge-dot { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── 1. HEADER ─────────────────────────────────────── -->
+  <header class="header" id="top">
+    <div class="container">
+      <div class="header__inner">
+
+        <a href="#top" class="logo">
+          <div class="logo__mark">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <polyline points="2,14 7,8 11,11 18,4"/>
+              <line x1="14" y1="4" x2="18" y2="4"/>
+              <line x1="18" y1="4" x2="18" y2="8"/>
+            </svg>
+          </div>
+          <span class="logo__name">Bergmann <span>Financial</span></span>
+        </a>
+
+        <nav class="nav" id="mainNav" aria-label="Main navigation">
+          <ul class="nav__links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <a href="#contact" class="btn btn-primary btn-sm nav__cta">Book a Meeting</a>
+          <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 2. HERO ────────────────────────────────────────── -->
+  <section class="hero" id="hero" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero__inner">
+
+        <div class="hero__content">
+          <div class="hero__badge">
+            <span class="hero__badge-dot"></span>
+            Independent Advisory &bull; Oslo, Norway
+          </div>
+          <h1 id="hero-heading">Financial clarity<br>for your <em>future</em></h1>
+          <p class="hero__sub">Independent financial advisor in Oslo — helping families and professionals across Norway build lasting financial security with clear, unbiased advice.</p>
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn-primary">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Book Free Consultation
+            </a>
+            <a href="#services" class="btn btn-ghost">See Services</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__card">
+            <div class="hero__card-header">
+              <span class="hero__card-title">Portfolio Overview</span>
+              <span class="hero__card-badge">+12.4% YTD</span>
+            </div>
+            <div class="hero__chart" aria-hidden="true">
+              <div class="hero__bar"></div>
+              <div class="hero__bar"></div>
+              <div class="hero__bar"></div>
+              <div class="hero__bar"></div>
+              <div class="hero__bar hero__bar--active"></div>
+              <div class="hero__bar hero__bar--active"></div>
+              <div class="hero__bar hero__bar--active"></div>
+            </div>
+            <div class="hero__stat-row">
+              <div class="hero__stat">
+                <div class="hero__stat-val">NOK 2.4M</div>
+                <div class="hero__stat-lbl">Total Assets</div>
+              </div>
+              <div class="hero__stat">
+                <div class="hero__stat-val">8.7%</div>
+                <div class="hero__stat-lbl">Avg. Return</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero__float" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            Plan reviewed & optimised
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. SERVICES ────────────────────────────────────── -->
+  <section class="services" id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">What I offer</span>
+        <h2 id="services-heading">Services tailored to you</h2>
+        <p>Whether you're building wealth, planning for retirement, or navigating investments — I provide clear, independent advice with no hidden agendas.</p>
+      </div>
+
+      <div class="services__grid">
+
+        <article class="service-card reveal reveal--d1">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Personal Finance</h3>
+          <p>Build a solid financial foundation with a tailored budget, savings plan, and clear roadmap to your goals.</p>
+          <a href="#contact" class="service-card__link">Learn more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </article>
+
+        <article class="service-card reveal reveal--d2">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+          </div>
+          <h3>Retirement Planning</h3>
+          <p>Secure your future with a personalised pension strategy that accounts for your lifestyle and timeline.</p>
+          <a href="#contact" class="service-card__link">Learn more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </article>
+
+        <article class="service-card reveal reveal--d3">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          </div>
+          <h3>Investment Strategy</h3>
+          <p>Grow your wealth with evidence-based investment advice aligned to your risk profile and objectives.</p>
+          <a href="#contact" class="service-card__link">Learn more <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. ABOUT ────────────────────────────────────────── -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about__inner">
+
+        <div class="about__photo-wrap reveal reveal--left">
+          <div class="about__photo">
+            <img src="images/Erik Bergmann.jpg" alt="Erik Bergmann — Independent Financial Advisor, Oslo" />
+          </div>
+          <div class="about__badge">
+            <div class="about__badge-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+            </div>
+            <div class="about__badge-text">
+              <strong>Certified Advisor</strong>
+              Norwegian Financial Authority
+            </div>
+          </div>
+        </div>
+
+        <div class="about__content reveal reveal--right">
+          <span class="section-label">About me</span>
+          <h2 id="about-heading">Your independent financial partner</h2>
+          <p class="about__bio" style="margin-top:14px;">I'm Erik Bergmann, an independent financial advisor based in Oslo. For over a decade I have helped individuals and families across Norway take control of their finances — without the conflicts of interest that come from working with banks or product-tied advisors. </p>
+
+          <div class="about__trust" role="list">
+            <div class="trust-item" role="listitem">
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"/></svg>
+              </div>
+              <div class="trust-text">
+                <strong>10+ years experience</strong>
+                <span>Advising individuals and families across Norway</span>
+              </div>
+            </div>
+            <div class="trust-item" role="listitem">
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="trust-text">
+                <strong>200+ clients served</strong>
+                <span>From young professionals to pre-retirees</span>
+              </div>
+            </div>
+            <div class="trust-item" role="listitem">
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+              </div>
+              <div class="trust-text">
+                <strong>Certified financial advisor</strong>
+                <span>Authorised by Finanstilsynet (Norwegian FSA)</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn-primary">Work with me</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. TESTIMONIALS ────────────────────────────────── -->
+  <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Client stories</span>
+        <h2 id="testimonials-heading">What clients say</h2>
+        <p>Real outcomes from real people who took control of their financial futures.</p>
+      </div>
+
+      <div class="testimonials__grid">
+
+        <article class="quote-card reveal reveal--d1">
+          <div class="stars" aria-label="5 stars">
+            <span class="star"></span><span class="star"></span><span class="star"></span>
+            <span class="star"></span><span class="star"></span>
+          </div>
+          <p class="quote-text">Erik gave me the financial confidence I had been missing for years. He simplified everything, built a realistic plan, and held me accountable. I retired six months earlier than expected.</p>
+          <div class="quote-author">
+            <div class="quote-avatar">
+              <img src="images/testimonial women.jpg" alt="Marianne Haugen" />
+            </div>
+            <div>
+              <div class="quote-name">Marianne Haugen</div>
+              <div class="quote-title-text">Retired teacher, Bergen</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="quote-card reveal reveal--d2">
+          <div class="stars" aria-label="5 stars">
+            <span class="star"></span><span class="star"></span><span class="star"></span>
+            <span class="star"></span><span class="star"></span>
+          </div>
+          <p class="quote-text">As a self-employed consultant, managing taxes, savings, and investments felt overwhelming. Erik made sense of it all. His independent approach means I always know the advice is genuinely in my interest.</p>
+          <div class="quote-author">
+            <div class="quote-avatar">
+              <img src="images/testimonial man.jpg" alt="Thomas Lie" />
+            </div>
+            <div>
+              <div class="quote-name">Thomas Lie</div>
+              <div class="quote-title-text">IT Consultant, Oslo</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="quote-card reveal reveal--d3">
+          <div class="stars" aria-label="5 stars">
+            <span class="star"></span><span class="star"></span><span class="star"></span>
+            <span class="star"></span><span class="star"></span>
+          </div>
+          <p class="quote-text">We came to Erik with no clear plan and a lot of anxiety about money. Within three months we had a strategy that actually worked for our family. His calm, honest guidance changed everything for us.</p>
+          <div class="quote-author">
+            <div class="quote-avatar">
+              <img src="images/testomonial woman.jpg" alt="Ingrid Solberg" />
+            </div>
+            <div>
+              <div class="quote-name">Ingrid Solberg</div>
+              <div class="quote-title-text">Marketing Director, Stavanger</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. CONTACT ─────────────────────────────────────── -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact__inner">
+
+        <div class="contact__info reveal reveal--left">
+          <span class="section-label">Get in touch</span>
+          <h2 id="contact-heading">Let's talk about your finances</h2>
+          <p>Book a free 30-minute consultation. No obligations, no sales pitch — just an honest conversation about your financial situation and goals.</p>
+
+          <div class="contact__details">
+            <a href="tel:+4722334455" class="contact__link" aria-label="Call us">
+              <div class="contact__link-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.29 6.29l1.42-1.42a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact__link-text">Phone</div>
+                <div class="contact__link-val">+47 22 33 44 55</div>
+              </div>
+            </a>
+            <a href="mailto:erik@bergmannfinancial.no" class="contact__link" aria-label="Email us">
+              <div class="contact__link-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact__link-text">Email</div>
+                <div class="contact__link-val">erik@bergmannfinancial.no</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact__form reveal reveal--right" novalidate aria-label="Contact form" id="contactForm">
+          <div class="form-group">
+            <label for="name" class="form-label">Your name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Erik Andersen" autocomplete="name" required />
+            <span class="field-error" id="name-error">Please enter your name.</span>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" required />
+            <span class="field-error" id="email-error">Please enter a valid email address.</span>
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Tell me briefly about your situation and what you'd like help with…" required></textarea>
+            <span class="field-error" id="message-error">Please include a brief message.</span>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. FOOTER ──────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+
+        <a href="#top" class="logo">
+          <div class="logo__mark">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <polyline points="2,14 7,8 11,11 18,4"/>
+              <line x1="14" y1="4" x2="18" y2="4"/>
+              <line x1="18" y1="4" x2="18" y2="8"/>
+            </svg>
+          </div>
+          <span class="logo__name">Bergmann <span>Financial</span></span>
+        </a>
+
+        <ul class="footer__nav" aria-label="Footer navigation">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <p class="footer__copy">&copy; 2026 Bergmann Financial Advisory. All rights reserved.</p>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── JS ─────────────────────────────────────────────── -->
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const nav    = document.getElementById('mainNav');
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('nav--open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Close mobile nav on link click
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('nav--open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Inline validation helpers
+    function validateField(input) {
+      const id = input.id;
+      const error = document.getElementById(id + '-error');
+      let valid = false;
+      if (id === 'email') {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      } else {
+        valid = input.value.trim().length > 0;
+      }
+      input.classList.toggle('valid', valid);
+      input.classList.toggle('invalid', !valid);
+      if (error) error.classList.toggle('visible', !valid);
+      return valid;
+    }
+
+    document.querySelectorAll('.form-input, .form-textarea').forEach(field => {
+      field.addEventListener('blur', () => validateField(field));
+      field.addEventListener('input', () => {
+        if (field.classList.contains('invalid')) validateField(field);
+      });
+    });
+
+    // ── Scroll reveal ────────────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    revealEls.forEach(el => revealIO.observe(el));
+
+    // ── Header scroll shadow ─────────────────────────────
+    const hdr = document.querySelector('.header');
+    const syncHeader = () => hdr.classList.toggle('header--scrolled', window.scrollY > 12);
+    window.addEventListener('scroll', syncHeader, { passive: true });
+    syncHeader();
+
+    // ── Hero visual parallax ─────────────────────────────
+    const heroVisual = document.querySelector('.hero__visual');
+    if (heroVisual) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const heroH = document.querySelector('.hero').offsetHeight;
+        if (y < heroH * 1.4) {
+          heroVisual.style.transform = 'translateY(' + (y * 0.06) + 'px)';
+        }
+      }, { passive: true });
+    }
+
+    // ── Stat counter animation ───────────────────────────
+    function animateCounter(el) {
+      const raw = el.textContent.trim();
+      const m = raw.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)([^0-9]*)$/);
+      if (!m) return;
+      const [, pre, numStr, suf] = m;
+      const target = parseFloat(numStr);
+      const dec = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+      const dur = 1100;
+      const t0 = performance.now();
+      const tick = (now) => {
+        const prog = Math.min((now - t0) / dur, 1);
+        const ease = 1 - Math.pow(1 - prog, 3);
+        el.textContent = pre + (ease * target).toFixed(dec) + suf;
+        if (prog < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+    const statRow = document.querySelector('.hero__stat-row');
+    if (statRow) {
+      const statIO = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.querySelectorAll('.hero__stat-val').forEach(animateCounter);
+            statIO.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.6 });
+      statIO.observe(statRow);
+    }
+
+    // Form submit
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const fields = e.target.querySelectorAll('.form-input, .form-textarea');
+      let allValid = true;
+      fields.forEach(f => { if (!validateField(f)) allValid = false; });
+      if (!allValid) return;
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = 'Message sent!';
+      btn.disabled = true;
+      btn.style.background = '#145f56';
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+        btn.style.background = '';
+        e.target.reset();
+        fields.forEach(f => { f.classList.remove('valid', 'invalid'); });
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
